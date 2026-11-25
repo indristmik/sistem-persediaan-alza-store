@@ -19,7 +19,7 @@
         <div>
             <h4 class="fw-semibold text-dark mb-1">Dashboard Admin</h4>
             <p class="text-muted small mb-0">
-                Ringkasan persediaan barang, pintasan input transaksi harian, dan pantauan stok ALZA.STORE.
+                kucing persediaan barang, pintasan input transaksi harian, dan pantauan stok ALZA.STORE.
             </p>
         </div>
         <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-3 fw-medium">
