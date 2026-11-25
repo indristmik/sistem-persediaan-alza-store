@@ -19,7 +19,7 @@
         <div>
             <h4 class="fw-semibold text-dark mb-1">Dashboard Admin</h4>
             <p class="text-muted small mb-0">
-                kucing persediaan barang, pintasan input transaksi harian, dan pantauan stok ALZA.STORE.
+                Ringkasan persediaan barang, pintasan input transaksi harian, dan pantauan stok ALZA.STORE.
             </p>
         </div>
         <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-3 fw-medium">
@@ -160,25 +160,25 @@
                                         ? 'bg-danger'
                                         : (($sisa <= (int) $tk['stok_minimum']) ? 'bg-warning text-dark' : 'bg-success');
                                 ?>
-                                <tr>
-                                    <td class="ps-0 py-2">
-                                        <span class="fw-semibold text-dark d-block"><?= esc($tk['nama_produk']); ?></span>
-                                        <small class="text-muted">Ukuran <?= esc($tk['ukuran']); ?> • <?= esc($tk['kode_sku']); ?></small>
-                                    </td>
-                                    <td class="text-center text-nowrap">
-                                        <span class="badge <?= $badgeClass; ?> rounded-3"><?= $sisa; ?> pcs</span>
-                                    </td>
-                                    <td class="text-end pe-0 text-nowrap">
-                                        <a href="/Admin/BarangMasuk" class="btn btn-sm btn-outline-success py-0 px-2" style="font-size: 12px;">
-                                            + Masuk
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="ps-0 py-2">
+                                            <span class="fw-semibold text-dark d-block"><?= esc($tk['nama_produk']); ?></span>
+                                            <small class="text-muted">Ukuran <?= esc($tk['ukuran']); ?> • <?= esc($tk['kode_sku']); ?></small>
+                                        </td>
+                                        <td class="text-center text-nowrap">
+                                            <span class="badge <?= $badgeClass; ?> rounded-3"><?= $sisa; ?> pcs</span>
+                                        </td>
+                                        <td class="text-end pe-0 text-nowrap">
+                                            <a href="/Admin/BarangMasuk" class="btn btn-sm btn-outline-success py-0 px-2" style="font-size: 12px;">
+                                                + Masuk
+                                            </a>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                                 <?php if (empty($top5_kritis)) : ?>
-                                <tr>
-                                    <td colspan="3" class="text-center text-muted py-4">Belum ada data SKU.</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-4">Belum ada data SKU.</td>
+                                    </tr>
                                 <?php endif; ?>
                             </tbody>
                         </table>
@@ -211,38 +211,38 @@
                             $qty = (int) $log['jumlah'];
                             $isRetur = !empty($log['id_retur']);
                         ?>
-                        <tr>
-                            <td class="px-2 text-muted small text-nowrap">
-                                <?= date('d/m/Y H:i', strtotime($log['tanggal_pergerakan'])); ?>
-                            </td>
-                            <td class="px-2">
-                                <span class="fw-semibold text-dark d-block"><?= esc($log['nama_produk']); ?></span>
-                                <small class="text-muted">Ukuran <?= esc($log['ukuran']); ?> • <?= esc($log['kode_sku']); ?></small>
-                            </td>
-                            <td class="px-2 text-nowrap">
-                                <?php if ($isRetur) : ?>
-                                    <span class="badge bg-info rounded-3 fw-semibold">Retur Masuk</span>
-                                <?php elseif ($qty > 0) : ?>
-                                    <span class="badge bg-success rounded-3 fw-semibold">Barang Masuk</span>
-                                <?php else : ?>
-                                    <span class="badge bg-danger rounded-3 fw-semibold">Barang Keluar</span>
-                                <?php endif; ?>
-                            </td>
-                            <td class="px-2"><?= esc($log['keterangan']); ?></td>
-                            <td class="px-2 text-center text-nowrap">
-                                <?php if ($qty > 0) : ?>
-                                    <span class="fw-bold text-success">+<?= $qty; ?> pcs</span>
-                                <?php else : ?>
-                                    <span class="fw-bold text-danger"><?= $qty; ?> pcs</span>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="px-2 text-muted small text-nowrap">
+                                    <?= date('d/m/Y H:i', strtotime($log['tanggal_pergerakan'])); ?>
+                                </td>
+                                <td class="px-2">
+                                    <span class="fw-semibold text-dark d-block"><?= esc($log['nama_produk']); ?></span>
+                                    <small class="text-muted">Ukuran <?= esc($log['ukuran']); ?> • <?= esc($log['kode_sku']); ?></small>
+                                </td>
+                                <td class="px-2 text-nowrap">
+                                    <?php if ($isRetur) : ?>
+                                        <span class="badge bg-info rounded-3 fw-semibold">Retur Masuk</span>
+                                    <?php elseif ($qty > 0) : ?>
+                                        <span class="badge bg-success rounded-3 fw-semibold">Barang Masuk</span>
+                                    <?php else : ?>
+                                        <span class="badge bg-danger rounded-3 fw-semibold">Barang Keluar</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="px-2"><?= esc($log['keterangan']); ?></td>
+                                <td class="px-2 text-center text-nowrap">
+                                    <?php if ($qty > 0) : ?>
+                                        <span class="fw-bold text-success">+<?= $qty; ?> pcs</span>
+                                    <?php else : ?>
+                                        <span class="fw-bold text-danger"><?= $qty; ?> pcs</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
 
                         <?php if (empty($log_aktivitas)) : ?>
-                        <tr>
-                            <td colspan="5" class="text-center text-muted py-4">Belum ada aktivitas pergerakan stok.</td>
-                        </tr>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">Belum ada aktivitas pergerakan stok.</td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -262,8 +262,7 @@
         type: 'bar',
         data: {
             labels: <?= $label_grafik; ?>,
-            datasets: [
-                {
+            datasets: [{
                     label: 'Barang Masuk (pcs)',
                     data: <?= $data_masuk_7; ?>,
                     backgroundColor: 'rgba(19, 222, 185, 0.85)',
@@ -293,12 +292,18 @@
             },
             scales: {
                 x: {
-                    grid: { display: false }
+                    grid: {
+                        display: false
+                    }
                 },
                 y: {
                     beginAtZero: true,
-                    ticks: { precision: 0 },
-                    grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                    ticks: {
+                        precision: 0
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
                 }
             }
         }
