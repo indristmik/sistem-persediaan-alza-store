@@ -19,6 +19,34 @@ $routes->group('Owner', [
         'Dashboard',
         'OwnerController\DashboardController::dashboard'
     );
+    $routes->get(
+        'StokMenipis',
+        'OwnerController\StokMenipisController::stokmenipis'
+    );
+    $routes->get(
+        'DataProduk',
+        'OwnerController\DataProdukController::dataproduk'
+    );
+    $routes->get(
+        'BarangMasuk',
+        'OwnerController\BarangMasukController::barangmasuk'
+    );
+    $routes->get(
+        'BarangKeluar',
+        'OwnerController\BarangKeluarController::barangkeluar'
+    );
+    $routes->get(
+        'ManajemenUser',
+        'OwnerController\ManajemenUserController::manajemenuser'
+    );
+    $routes->get(
+        'LaporanPersediaan',
+        'OwnerController\LaporanPersediaanController::laporan_persediaan'
+    );
+    $routes->get(
+        'BarangRetur',
+        'OwnerController\BarangReturController::barang_retur'
+    );
 });
 
 
@@ -82,7 +110,7 @@ $routes->group('Admin', [
     $routes->delete('BarangKeluar/hapus/(:num)', 'AdminController\BarangKeluar::hapus/$1');
 
     // ===================================
-        // RUTE BARANG RETUR
+    // RUTE BARANG RETUR
     // ===================================
     $routes->get('BarangRetur', 'AdminController\BarangRetur::index');
     $routes->post('BarangRetur/simpan', 'AdminController\BarangRetur::simpan');

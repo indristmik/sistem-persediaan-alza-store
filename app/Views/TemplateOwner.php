@@ -27,75 +27,143 @@
                 </div>
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+
                     <ul id="sidebarnav">
+
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
                             <span class="hide-menu">HALAMAN UTAMA</span>
                         </li>
+
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="/Owner/Dashboard" aria-expanded="false">
                                 <span>
-                                    <iconify-icon icon="solar:home-smile-bold-duotone" class="fs-6"></iconify-icon>
+                                    <iconify-icon
+                                        icon="solar:home-smile-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
                                 </span>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
+
+
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
-                            <span class="hide-menu">MENU UTAMA</span>
+                            <span class="hide-menu">DATA PERSEDIAAN</span>
                         </li>
+
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+                            <a class="sidebar-link" href="/Owner/StokMenipis" aria-expanded="false">
                                 <span>
-                                    <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                                    <iconify-icon
+                                        icon="solar:danger-triangle-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
                                 </span>
-                                <span class="hide-menu">Tambah Anggota</span>
+                                <span class="hide-menu">Stok Menipis</span>
                             </a>
                         </li>
+
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+                            <a class="sidebar-link" href="/Owner/DataProduk" aria-expanded="false">
                                 <span>
-                                    <iconify-icon icon="solar:danger-circle-bold-duotone" class="fs-6"></iconify-icon>
+                                    <iconify-icon
+                                        icon="solar:box-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
                                 </span>
-                                <span class="hide-menu">Penghasilan</span>
+                                <span class="hide-menu">Data Produk</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
-                                <span>
-                                    <iconify-icon icon="solar:bookmark-square-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
-                                </span>
-                                <span class="hide-menu">Pengeluaran Bahan Baku</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                                <span>
-                                    <iconify-icon icon="solar:file-text-bold-duotone" class="fs-6"></iconify-icon>
-                                </span>
-                                <span class="hide-menu">Data Penjahit</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                                <span>
-                                    <iconify-icon icon="solar:text-field-focus-bold-duotone" class="fs-6"></iconify-icon>
-                                </span>
-                                <span class="hide-menu">Upah Gaji Karyawan</span>
-                            </a>
-                        </li>
+
+
                         <li class="nav-small-cap">
-                            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-6" class="fs-6"></iconify-icon>
+                            <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+                            <span class="hide-menu">TRANSAKSI</span>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Owner/BarangMasuk" aria-expanded="false">
+                                <span>
+                                    <iconify-icon
+                                        icon="solar:inbox-in-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
+                                </span>
+                                <span class="hide-menu">Barang Masuk</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Owner/BarangKeluar" aria-expanded="false">
+                                <span>
+                                    <iconify-icon
+                                        icon="solar:box-minimalistic-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
+                                </span>
+                                <span class="hide-menu">Barang Keluar</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Owner/BarangRetur" aria-expanded="false">
+                                <span>
+                                    <iconify-icon
+                                        icon="solar:refresh-square-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
+                                </span>
+                                <span class="hide-menu">Barang Retur</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+                            <span class="hide-menu">MANAJEMEN</span>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Owner/ManajemenUser" aria-expanded="false">
+                                <span>
+                                    <iconify-icon
+                                        icon="solar:users-group-rounded-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
+                                </span>
+                                <span class="hide-menu">Manajemen User</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/Owner/LaporanPersediaan" aria-expanded="false">
+                                <span>
+                                    <iconify-icon
+                                        icon="solar:chart-square-bold-duotone"
+                                        class="fs-6">
+                                    </iconify-icon>
+                                </span>
+                                <span class="hide-menu">Laporan Persediaan</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
                             <span class="hide-menu">AUTENTIKASI</span>
                         </li>
+
                         <li class="sidebar-item">
                             <form action="<?= site_url('Logout') ?>" method="POST">
                                 <?= csrf_field() ?>
 
-                                <button type="submit" class="sidebar-link border-0 bg-transparent w-100 text-start">
+                                <button type="submit"
+                                    class="sidebar-link border-0 bg-transparent w-100 text-start">
                                     <span>
                                         <iconify-icon
-                                            icon="solar:login-3-bold-duotone"
+                                            icon="solar:logout-3-bold-duotone"
                                             class="fs-6">
                                         </iconify-icon>
                                     </span>
@@ -103,42 +171,10 @@
                                     <span class="hide-menu">Keluar</span>
                                 </button>
                             </form>
-                            <!-- <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                                <span>
-                                    <iconify-icon icon="solar:login-3-bold-duotone" class="fs-6"></iconify-icon>
-                                </span>
-                                <span class="hide-menu">Keluar</span>
-                            </a> -->
                         </li>
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                                <span>
-                                    <iconify-icon icon="solar:user-plus-rounded-bold-duotone" class="fs-6"></iconify-icon>
-                                </span>
-                                <span class="hide-menu">Register</span>
-                            </a>
-                        </li> -->
-                        <!-- <li class="nav-small-cap">
-                            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4" class="fs-6"></iconify-icon>
-                            <span class="hide-menu">EXTRA</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                                <span>
-                                    <iconify-icon icon="solar:sticker-smile-circle-2-bold-duotone" class="fs-6"></iconify-icon>
-                                </span>
-                                <span class="hide-menu">Icons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                                <span>
-                                    <iconify-icon icon="solar:planet-3-bold-duotone" class="fs-6"></iconify-icon>
-                                </span>
-                                <span class="hide-menu">Sample Page</span>
-                            </a>
-                        </li> -->
+
                     </ul>
+
                     <!-- <div class="unlimited-access hide-menu bg-primary-subtle position-relative mb-7 mt-7 rounded-3">
                         <div class="d-flex">
                             <div class="unlimited-access-title me-3">
@@ -168,12 +204,12 @@
                                 <i class="ti ti-menu-2"></i>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link nav-icon-hover" href="javascript:void(0)">
                                 <i class="ti ti-bell-ringing"></i>
                                 <div class="notification bg-primary rounded-circle"></div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
