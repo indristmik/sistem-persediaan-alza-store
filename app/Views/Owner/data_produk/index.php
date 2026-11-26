@@ -1,3 +1,16 @@
+<?php
+
+/**
+ * @var array $produk
+ * @var array $kategori
+ * @var \App\Models\VarianProdukModel $varianModel
+ * @var int $totalProduk
+ * @var int $totalKategori
+ * @var int $totalVarian
+ * @var int $totalStokMenipis
+ */
+?>
+
 <?= $this->extend('TemplateOwner'); ?>
 <?= $this->section('content'); ?>
 
@@ -29,7 +42,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Produk</p>
-                            <h4 class="fw-semibold mb-0">125</h4>
+                            <!-- <h4 class="fw-semibold mb-0">125</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= $totalProduk; ?>
+                            </h4>
                             <small class="text-muted">Produk terdaftar</small>
                         </div>
                         <div class="bg-light-primary rounded-3 p-3">
@@ -47,7 +63,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Kategori Produk</p>
-                            <h4 class="fw-semibold mb-0">8</h4>
+                            <!-- <h4 class="fw-semibold mb-0">8</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= $totalKategori; ?>
+                            </h4>
                             <small class="text-muted">Kategori tersedia</small>
                         </div>
                         <div class="bg-light-success rounded-3 p-3">
@@ -64,8 +83,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <p class="text-muted mb-1">Produk Tersedia</p>
-                            <h4 class="fw-semibold mb-0">112</h4>
+                            <p class="text-muted mb-1">Produk Varian Tersedia</p>
+                            <!-- <h4 class="fw-semibold mb-0">112</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= $totalVarian; ?>
+                            </h4>
                             <small class="text-muted">Stok mencukupi</small>
                         </div>
                         <div class="bg-light-warning rounded-3 p-3">
@@ -83,7 +105,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Stok Menipis</p>
-                            <h4 class="fw-semibold mb-0">13</h4>
+                            <!-- <h4 class="fw-semibold mb-0">13</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= $totalStokMenipis; ?>
+                            </h4>
                             <small class="text-muted">Perlu diperhatikan</small>
                         </div>
                         <div class="bg-light-danger rounded-3 p-3">
@@ -210,157 +235,94 @@
 
                             <tbody>
 
-                                <tr data-kategori="Kaos" data-status="Tersedia">
-                                    <td class="ps-0">1</td>
-                                    <td class="fw-semibold">SKU-001</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Kaos Polos Premium</h6>
-                                        <small class="text-muted">Produk fashion</small>
-                                    </td>
-                                    <td><span class="badge bg-light-primary text-primary">Kaos</span></td>
-                                    <td>Hitam</td>
-                                    <td>L</td>
-                                    <td class="fw-semibold">Rp85.000</td>
-                                    <td class="fw-semibold">45 Pcs</td>
-                                    <td><span class="badge bg-light-success text-success">Tersedia</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailProduk(this)"
-                                            data-nama="Kaos Polos Premium"
-                                            data-sku="SKU-001"
-                                            data-kategori="Kaos"
-                                            data-warna="Hitam"
-                                            data-ukuran="L"
-                                            data-harga="Rp85.000"
-                                            data-stok="45 Pcs"
-                                            data-minimum="10 Pcs"
-                                            data-status="Tersedia">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php $no = 1; ?>
 
-                                <tr data-kategori="Kemeja" data-status="Tersedia">
-                                    <td class="ps-0">2</td>
-                                    <td class="fw-semibold">SKU-002</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Kemeja Casual Pria</h6>
-                                        <small class="text-muted">Produk fashion</small>
-                                    </td>
-                                    <td><span class="badge bg-light-success text-success">Kemeja</span></td>
-                                    <td>Putih</td>
-                                    <td>M</td>
-                                    <td class="fw-semibold">Rp150.000</td>
-                                    <td class="fw-semibold">30 Pcs</td>
-                                    <td><span class="badge bg-light-success text-success">Tersedia</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailProduk(this)"
-                                            data-nama="Kemeja Casual Pria"
-                                            data-sku="SKU-002"
-                                            data-kategori="Kemeja"
-                                            data-warna="Putih"
-                                            data-ukuran="M"
-                                            data-harga="Rp150.000"
-                                            data-stok="30 Pcs"
-                                            data-minimum="10 Pcs"
-                                            data-status="Tersedia">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php foreach ($produk as $p): ?>
 
-                                <tr data-kategori="Celana" data-status="Menipis">
-                                    <td class="ps-0">3</td>
-                                    <td class="fw-semibold">SKU-003</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Celana Chino</h6>
-                                        <small class="text-muted">Produk fashion</small>
-                                    </td>
-                                    <td><span class="badge bg-light-warning text-warning">Celana</span></td>
-                                    <td>Khaki</td>
-                                    <td>32</td>
-                                    <td class="fw-semibold">Rp175.000</td>
-                                    <td class="fw-semibold text-warning">5 Pcs</td>
-                                    <td><span class="badge bg-light-warning text-warning">Menipis</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailProduk(this)"
-                                            data-nama="Celana Chino"
-                                            data-sku="SKU-003"
-                                            data-kategori="Celana"
-                                            data-warna="Khaki"
-                                            data-ukuran="32"
-                                            data-harga="Rp175.000"
-                                            data-stok="5 Pcs"
-                                            data-minimum="10 Pcs"
-                                            data-status="Menipis">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <?php foreach ($p['rincian_varian'] as $v): ?>
 
-                                <tr data-kategori="Jaket" data-status="Habis">
-                                    <td class="ps-0">4</td>
-                                    <td class="fw-semibold">SKU-004</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Jaket Denim</h6>
-                                        <small class="text-muted">Produk fashion</small>
-                                    </td>
-                                    <td><span class="badge bg-light-primary text-primary">Jaket</span></td>
-                                    <td>Biru</td>
-                                    <td>XL</td>
-                                    <td class="fw-semibold">Rp250.000</td>
-                                    <td class="fw-semibold text-danger">0 Pcs</td>
-                                    <td><span class="badge bg-light-danger text-danger">Habis</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailProduk(this)"
-                                            data-nama="Jaket Denim"
-                                            data-sku="SKU-004"
-                                            data-kategori="Jaket"
-                                            data-warna="Biru"
-                                            data-ukuran="XL"
-                                            data-harga="Rp250.000"
-                                            data-stok="0 Pcs"
-                                            data-minimum="5 Pcs"
-                                            data-status="Habis">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        <?php
+                                        if ($v['stok'] == 0) {
+                                            $status = 'Habis';
+                                            $warnaStatus = 'danger';
+                                        } elseif ($v['stok'] <= $v['stok_minimum']) {
+                                            $status = 'Menipis';
+                                            $warnaStatus = 'warning';
+                                        } else {
+                                            $status = 'Tersedia';
+                                            $warnaStatus = 'success';
+                                        }
+                                        ?>
 
-                                <tr data-kategori="Hoodie" data-status="Tersedia">
-                                    <td class="ps-0">5</td>
-                                    <td class="fw-semibold">SKU-005</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Hoodie Oversize</h6>
-                                        <small class="text-muted">Produk fashion</small>
-                                    </td>
-                                    <td><span class="badge bg-light-primary text-primary">Hoodie</span></td>
-                                    <td>Abu-abu</td>
-                                    <td>XL</td>
-                                    <td class="fw-semibold">Rp185.000</td>
-                                    <td class="fw-semibold">25 Pcs</td>
-                                    <td><span class="badge bg-light-success text-success">Tersedia</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailProduk(this)"
-                                            data-nama="Hoodie Oversize"
-                                            data-sku="SKU-005"
-                                            data-kategori="Hoodie"
-                                            data-warna="Abu-abu"
-                                            data-ukuran="XL"
-                                            data-harga="Rp185.000"
-                                            data-stok="25 Pcs"
-                                            data-minimum="10 Pcs"
-                                            data-status="Tersedia">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        <tr
+                                            data-kategori="<?= esc($p['nama_kategori'] ?? '-'); ?>"
+                                            data-status="<?= $status; ?>">
+
+                                            <td><?= $no++; ?></td>
+
+                                            <td class="fw-semibold">
+                                                <?= esc($v['kode_sku'] ?? $v['sku'] ?? '-'); ?>
+                                            </td>
+
+                                            <td>
+                                                <h6 class="mb-0 fw-semibold">
+                                                    <?= esc($p['nama_produk']); ?>
+                                                </h6>
+                                                <small class="text-muted">
+                                                    <?= esc($p['daftar_warna']); ?>
+                                                </small>
+                                            </td>
+
+                                            <td>
+                                                <?= esc($p['nama_kategori'] ?? '-'); ?>
+                                            </td>
+
+                                            <td><?= esc($v['warna']); ?></td>
+
+                                            <td><?= esc($v['ukuran']); ?></td>
+
+                                            <td class="fw-semibold">
+                                                Rp<?= number_format($v['harga_jual'], 0, ',', '.'); ?>
+                                            </td>
+
+                                            <td class="fw-semibold">
+                                                <?= esc($v['stok']); ?> Pcs
+                                            </td>
+
+                                            <td>
+                                                <span class="badge bg-light-<?= $warnaStatus; ?> text-<?= $warnaStatus; ?>">
+                                                    <?= $status; ?>
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <button
+                                                    class="btn btn-sm btn-light-primary"
+                                                    type="button"
+                                                    onclick="lihatDetailProduk(this)"
+
+                                                    data-nama="<?= esc($p['nama_produk']); ?>"
+                                                    data-sku="<?= esc($v['kode_sku'] ?? $v['sku'] ?? '-'); ?>"
+                                                    data-kategori="<?= esc($p['nama_kategori'] ?? '-'); ?>"
+                                                    data-warna="<?= esc($v['warna']); ?>"
+                                                    data-ukuran="<?= esc($v['ukuran']); ?>"
+                                                    data-harga="Rp<?= number_format($v['harga_jual'], 0, ',', '.'); ?>"
+                                                    data-stok="<?= esc($v['stok']); ?> Pcs"
+                                                    data-minimum="<?= esc($v['stok_minimum']); ?> Pcs"
+                                                    data-status="<?= $status; ?>">
+
+                                                    <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+
+                                    <?php endforeach; ?>
+
+                                <?php endforeach; ?>
 
                             </tbody>
+
                         </table>
 
                         <div id="dataKosongProduk" class="text-center py-5 d-none">
@@ -544,13 +506,22 @@
 
                     <div class="mb-3">
                         <label class="form-label">Kategori</label>
-                        <select class="form-select" required>
+                        <!-- <select class="form-select" required>
                             <option value="">Pilih Kategori</option>
                             <option>Kaos</option>
                             <option>Kemeja</option>
                             <option>Celana</option>
                             <option>Jaket</option>
                             <option>Hoodie</option>
+                        </select> -->
+                        <select class="form-select" name="id_kategori" required>
+                            <option value="">Pilih Kategori</option>
+
+                            <?php foreach ($kategori as $kat): ?>
+                                <option value="<?= $kat['id_kategori']; ?>">
+                                    <?= esc($kat['nama_kategori']); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 

@@ -1,3 +1,15 @@
+<?php
+
+/**
+ * @var array $kategori
+ * @var array $stokMenipis
+ * @var int $totalMenipis
+ * @var int $totalKritis
+ * @var int $totalPerluRestock
+ * @var int $totalKekurangan
+ */
+?>
+
 <?= $this->extend('TemplateOwner'); ?>
 <?= $this->section('content'); ?>
 
@@ -31,7 +43,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Produk Menipis</p>
-                            <h4 class="fw-semibold mb-0">8</h4>
+                            <!-- <h4 class="fw-semibold mb-0">8</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format($totalMenipis, 0, ',', '.'); ?>
+                            </h4>
                             <small class="text-muted">Produk perlu dipantau</small>
                         </div>
 
@@ -51,7 +66,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Stok Kritis</p>
-                            <h4 class="fw-semibold mb-0">3</h4>
+                            <!-- <h4 class="fw-semibold mb-0">3</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format($totalKritis, 0, ',', '.'); ?>
+                            </h4>
                             <small class="text-muted">Stok hampir habis</small>
                         </div>
 
@@ -71,7 +89,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Perlu Restock</p>
-                            <h4 class="fw-semibold mb-0">5</h4>
+                            <!-- <h4 class="fw-semibold mb-0">5</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format($totalPerluRestock, 0, ',', '.'); ?>
+                            </h4>
                             <small class="text-muted">Di bawah stok minimum</small>
                         </div>
 
@@ -91,8 +112,11 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Kekurangan</p>
-                            <h4 class="fw-semibold mb-0">42</h4>
-                            <small class="text-muted">Pcs / unit</small>
+                            <!-- <h4 class="fw-semibold mb-0">42</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format($totalKekurangan, 0, ',', '.'); ?>
+                            </h4>
+                            <small class="text-muted">Pcs </small>
                         </div>
 
                         <div class="bg-light-success rounded-3 p-3">
@@ -127,13 +151,28 @@
 
                         <div class="col-md-3">
                             <label class="form-label">Kategori</label>
-                            <select class="form-select" id="filterKategoriStok">
+                            <!-- <select class="form-select" id="filterKategoriStok">
                                 <option value="">Semua Kategori</option>
                                 <option value="Elektronik">Elektronik</option>
                                 <option value="ATK">ATK</option>
                                 <option value="Peralatan">Peralatan</option>
                                 <option value="Kebersihan">Kebersihan</option>
+                            </select> -->
+
+                            <select class="form-select" id="filterKategoriStok">
+
+                                <option value="">Semua Kategori</option>
+
+                                <?php foreach ($kategori as $kat): ?>
+
+                                    <option value="<?= esc($kat['nama_kategori']); ?>">
+                                        <?= esc($kat['nama_kategori']); ?>
+                                    </option>
+
+                                <?php endforeach; ?>
+
                             </select>
+
                         </div>
 
                         <div class="col-md-2">
@@ -207,325 +246,140 @@
                                 </tr>
                             </thead>
 
+
                             <tbody>
 
-                                <!-- PRODUK 1 -->
-                                <tr data-kategori="Elektronik" data-status="Kritis">
-                                    <td class="ps-0">1</td>
-                                    <td class="fw-semibold">PRD-001</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Mouse Wireless</h6>
-                                        <small class="text-muted">Warna: Hitam</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-primary text-primary">
-                                            Elektronik
-                                        </span>
-                                    </td>
-                                    <td class="fw-semibold text-danger">2 Pcs</td>
-                                    <td>10 Pcs</td>
-                                    <td class="fw-semibold text-danger">8 Pcs</td>
-                                    <td>
-                                        <span class="badge bg-light-danger text-danger">
-                                            Kritis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-001"
-                                            data-nama="Mouse Wireless"
-                                            data-kategori="Elektronik"
-                                            data-warna="Hitam"
-                                            data-ukuran="Standar"
-                                            data-harga="Rp75.000"
-                                            data-stok="2 Pcs"
-                                            data-minimum="10 Pcs"
-                                            data-kekurangan="8 Pcs"
-                                            data-status="Kritis"
-                                            data-catatan="Stok mouse wireless hampir habis dan perlu segera dilakukan pengadaan.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php if (!empty($stokMenipis)): ?>
 
-                                <!-- PRODUK 2 -->
-                                <tr data-kategori="ATK" data-status="Menipis">
-                                    <td class="ps-0">2</td>
-                                    <td class="fw-semibold">PRD-008</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Kertas A4</h6>
-                                        <small class="text-muted">Warna: Putih</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-success text-success">ATK</span>
-                                    </td>
-                                    <td class="fw-semibold text-warning">5 Rim</td>
-                                    <td>10 Rim</td>
-                                    <td class="fw-semibold text-warning">5 Rim</td>
-                                    <td>
-                                        <span class="badge bg-light-warning text-warning">
-                                            Menipis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-008"
-                                            data-nama="Kertas A4"
-                                            data-kategori="ATK"
-                                            data-warna="Putih"
-                                            data-ukuran="A4"
-                                            data-harga="Rp55.000"
-                                            data-stok="5 Rim"
-                                            data-minimum="10 Rim"
-                                            data-kekurangan="5 Rim"
-                                            data-status="Menipis"
-                                            data-catatan="Persediaan kertas A4 sudah berada di bawah batas minimum.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <?php foreach ($stokMenipis as $no => $stok): ?>
 
-                                <!-- PRODUK 3 -->
-                                <tr data-kategori="Peralatan" data-status="Kritis">
-                                    <td class="ps-0">3</td>
-                                    <td class="fw-semibold">PRD-004</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Kabel LAN 5 Meter</h6>
-                                        <small class="text-muted">Warna: Biru</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-warning text-warning">
-                                            Peralatan
-                                        </span>
-                                    </td>
-                                    <td class="fw-semibold text-danger">1 Pcs</td>
-                                    <td>8 Pcs</td>
-                                    <td class="fw-semibold text-danger">7 Pcs</td>
-                                    <td>
-                                        <span class="badge bg-light-danger text-danger">
-                                            Kritis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-004"
-                                            data-nama="Kabel LAN 5 Meter"
-                                            data-kategori="Peralatan"
-                                            data-warna="Biru"
-                                            data-ukuran="5 Meter"
-                                            data-harga="Rp25.000"
-                                            data-stok="1 Pcs"
-                                            data-minimum="8 Pcs"
-                                            data-kekurangan="7 Pcs"
-                                            data-status="Kritis"
-                                            data-catatan="Stok kabel LAN sangat rendah dan perlu segera ditambah.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        <?php
+                                        $status = $stok['status'];
 
-                                <!-- PRODUK 4 -->
-                                <tr data-kategori="Kebersihan" data-status="Menipis">
-                                    <td class="ps-0">4</td>
-                                    <td class="fw-semibold">PRD-014</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Cairan Pembersih</h6>
-                                        <small class="text-muted">Warna: Biru</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-info text-info">
-                                            Kebersihan
-                                        </span>
-                                    </td>
-                                    <td class="fw-semibold text-warning">4 Botol</td>
-                                    <td>10 Botol</td>
-                                    <td class="fw-semibold text-warning">6 Botol</td>
-                                    <td>
-                                        <span class="badge bg-light-warning text-warning">
-                                            Menipis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-014"
-                                            data-nama="Cairan Pembersih"
-                                            data-kategori="Kebersihan"
-                                            data-warna="Biru"
-                                            data-ukuran="1 Liter"
-                                            data-harga="Rp18.000"
-                                            data-stok="4 Botol"
-                                            data-minimum="10 Botol"
-                                            data-kekurangan="6 Botol"
-                                            data-status="Menipis"
-                                            data-catatan="Stok cairan pembersih perlu ditambah untuk menjaga ketersediaan barang.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        $badgeKategori = 'bg-light-primary text-primary';
 
-                                <!-- PRODUK 5 -->
-                                <tr data-kategori="Elektronik" data-status="Menipis">
-                                    <td class="ps-0">5</td>
-                                    <td class="fw-semibold">PRD-002</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Keyboard USB</h6>
-                                        <small class="text-muted">Warna: Hitam</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-primary text-primary">
-                                            Elektronik
-                                        </span>
-                                    </td>
-                                    <td class="fw-semibold text-warning">3 Pcs</td>
-                                    <td>8 Pcs</td>
-                                    <td class="fw-semibold text-warning">5 Pcs</td>
-                                    <td>
-                                        <span class="badge bg-light-warning text-warning">
-                                            Menipis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-002"
-                                            data-nama="Keyboard USB"
-                                            data-kategori="Elektronik"
-                                            data-warna="Hitam"
-                                            data-ukuran="Standar"
-                                            data-harga="Rp95.000"
-                                            data-stok="3 Pcs"
-                                            data-minimum="8 Pcs"
-                                            data-kekurangan="5 Pcs"
-                                            data-status="Menipis"
-                                            data-catatan="Persediaan keyboard USB sudah di bawah stok minimum.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        $badgeStatus = $status === 'Kritis'
+                                            ? 'bg-light-danger text-danger'
+                                            : 'bg-light-warning text-warning';
 
-                                <!-- PRODUK 6 -->
-                                <tr data-kategori="ATK" data-status="Kritis">
-                                    <td class="ps-0">6</td>
-                                    <td class="fw-semibold">PRD-009</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Pulpen</h6>
-                                        <small class="text-muted">Warna: Hitam</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-success text-success">ATK</span>
-                                    </td>
-                                    <td class="fw-semibold text-danger">2 Pcs</td>
-                                    <td>15 Pcs</td>
-                                    <td class="fw-semibold text-danger">13 Pcs</td>
-                                    <td>
-                                        <span class="badge bg-light-danger text-danger">
-                                            Kritis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-009"
-                                            data-nama="Pulpen"
-                                            data-kategori="ATK"
-                                            data-warna="Hitam"
-                                            data-ukuran="Standar"
-                                            data-harga="Rp3.000"
-                                            data-stok="2 Pcs"
-                                            data-minimum="15 Pcs"
-                                            data-kekurangan="13 Pcs"
-                                            data-status="Kritis"
-                                            data-catatan="Stok pulpen hampir habis. Disarankan segera melakukan penambahan stok.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        $warnaStok = $status === 'Kritis'
+                                            ? 'text-danger'
+                                            : 'text-warning';
 
-                                <!-- PRODUK 7 -->
-                                <tr data-kategori="Peralatan" data-status="Menipis">
-                                    <td class="ps-0">7</td>
-                                    <td class="fw-semibold">PRD-006</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Stop Kontak</h6>
-                                        <small class="text-muted">Warna: Putih</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-warning text-warning">
-                                            Peralatan
-                                        </span>
-                                    </td>
-                                    <td class="fw-semibold text-warning">3 Pcs</td>
-                                    <td>8 Pcs</td>
-                                    <td class="fw-semibold text-warning">5 Pcs</td>
-                                    <td>
-                                        <span class="badge bg-light-warning text-warning">
-                                            Menipis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-006"
-                                            data-nama="Stop Kontak"
-                                            data-kategori="Peralatan"
-                                            data-warna="Putih"
-                                            data-ukuran="3 Lubang"
-                                            data-harga="Rp35.000"
-                                            data-stok="3 Pcs"
-                                            data-minimum="8 Pcs"
-                                            data-kekurangan="5 Pcs"
-                                            data-status="Menipis"
-                                            data-catatan="Stok stop kontak perlu ditambah agar tetap tersedia.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        $harga = 'Rp' . number_format(
+                                            $stok['harga_jual'],
+                                            0,
+                                            ',',
+                                            '.'
+                                        );
+                                        ?>
 
-                                <!-- PRODUK 8 -->
-                                <tr data-kategori="Elektronik" data-status="Menipis">
-                                    <td class="ps-0">8</td>
-                                    <td class="fw-semibold">PRD-003</td>
-                                    <td>
-                                        <h6 class="mb-0 fw-semibold">Flashdisk 32GB</h6>
-                                        <small class="text-muted">Warna: Silver</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-light-primary text-primary">
-                                            Elektronik
-                                        </span>
-                                    </td>
-                                    <td class="fw-semibold text-warning">4 Pcs</td>
-                                    <td>10 Pcs</td>
-                                    <td class="fw-semibold text-warning">6 Pcs</td>
-                                    <td>
-                                        <span class="badge bg-light-warning text-warning">
-                                            Menipis
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-light-primary"
-                                            onclick="lihatDetailStok(this)"
-                                            data-kode="PRD-003"
-                                            data-nama="Flashdisk 32GB"
-                                            data-kategori="Elektronik"
-                                            data-warna="Silver"
-                                            data-ukuran="32GB"
-                                            data-harga="Rp65.000"
-                                            data-stok="4 Pcs"
-                                            data-minimum="10 Pcs"
-                                            data-kekurangan="6 Pcs"
-                                            data-status="Menipis"
-                                            data-catatan="Stok flashdisk 32GB berada di bawah batas minimum.">
-                                            <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        <tr
+                                            data-kategori="<?= esc($stok['nama_kategori'] ?? ''); ?>"
+                                            data-status="<?= esc($status); ?>">
+
+                                            <!-- NOMOR -->
+                                            <td class="ps-0">
+                                                <?= $no + 1; ?>
+                                            </td>
+
+                                            <!-- KODE SKU -->
+                                            <td class="fw-semibold">
+                                                <?= esc($stok['kode_sku']); ?>
+                                            </td>
+
+                                            <!-- NAMA PRODUK -->
+                                            <td>
+                                                <h6 class="mb-0 fw-semibold">
+                                                    <?= esc($stok['nama_produk']); ?>
+                                                </h6>
+
+                                                <small class="text-muted">
+                                                    Warna: <?= esc($stok['warna'] ?: '-'); ?>
+                                                </small>
+                                            </td>
+
+                                            <!-- KATEGORI -->
+                                            <td>
+                                                <span class="badge <?= $badgeKategori; ?>">
+                                                    <?= esc($stok['nama_kategori'] ?? '-'); ?>
+                                                </span>
+                                            </td>
+
+                                            <!-- STOK SAAT INI -->
+                                            <td class="fw-semibold <?= $warnaStok; ?>">
+                                                <?= number_format($stok['stok_sekarang']); ?> Pcs
+                                            </td>
+
+                                            <!-- STOK MINIMUM -->
+                                            <td>
+                                                <?= number_format($stok['stok_minimum']); ?> Pcs
+                                            </td>
+
+                                            <!-- KEKURANGAN -->
+                                            <td class="fw-semibold <?= $warnaStok; ?>">
+                                                <?= number_format($stok['kekurangan']); ?> Pcs
+                                            </td>
+
+                                            <!-- STATUS -->
+                                            <td>
+                                                <span class="badge <?= $badgeStatus; ?>">
+                                                    <?= esc($status); ?>
+                                                </span>
+                                            </td>
+
+                                            <!-- AKSI -->
+                                            <td>
+
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-light-primary"
+
+                                                    onclick="lihatDetailStok(this)"
+
+                                                    data-kode="<?= esc($stok['kode_sku'], 'attr'); ?>"
+                                                    data-nama="<?= esc($stok['nama_produk'], 'attr'); ?>"
+                                                    data-kategori="<?= esc($stok['nama_kategori'] ?? '-', 'attr'); ?>"
+                                                    data-warna="<?= esc($stok['warna'] ?: '-', 'attr'); ?>"
+                                                    data-ukuran="<?= esc($stok['ukuran'] ?: '-', 'attr'); ?>"
+                                                    data-harga="<?= esc($harga, 'attr'); ?>"
+                                                    data-stok="<?= esc(number_format($stok['stok_sekarang']) . ' Pcs', 'attr'); ?>"
+                                                    data-minimum="<?= esc(number_format($stok['stok_minimum']) . ' Pcs', 'attr'); ?>"
+                                                    data-kekurangan="<?= esc(number_format($stok['kekurangan']) . ' Pcs', 'attr'); ?>"
+                                                    data-status="<?= esc($status, 'attr'); ?>"
+                                                    data-catatan="<?= esc($stok['catatan'], 'attr'); ?>">
+
+                                                    <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
+
+                                                </button>
+
+                                            </td>
+
+                                        </tr>
+
+                                    <?php endforeach; ?>
+
+                                <?php else: ?>
+
+                                    <tr>
+                                        <td colspan="9" class="text-center py-5 text-muted">
+                                            <iconify-icon
+                                                icon="solar:check-circle-bold-duotone"
+                                                class="fs-8 text-success">
+                                            </iconify-icon>
+
+                                            <h6 class="mt-2">Tidak Ada Stok Menipis</h6>
+
+                                            <p class="mb-0">
+                                                Semua persediaan produk masih dalam kondisi aman.
+                                            </p>
+                                        </td>
+                                    </tr>
+
+                                <?php endif; ?>
 
                             </tbody>
+
                         </table>
 
                         <!-- DATA KOSONG -->
@@ -749,16 +603,17 @@
 <!-- ================= SCRIPT ================= -->
 <script>
     // ================= FILTER DAN PENCARIAN =================
+
     const searchStok = document.getElementById('searchStok');
     const filterKategoriStok = document.getElementById('filterKategoriStok');
     const filterStatusStok = document.getElementById('filterStatusStok');
+
     const tabelStok = document.getElementById('tableStokMenipis');
     const dataKosongStok = document.getElementById('dataKosongStok');
 
-
     function filterStokMenipis() {
 
-        const keyword = searchStok.value.toLowerCase();
+        const keyword = searchStok.value.toLowerCase().trim();
         const kategori = filterKategoriStok.value;
         const status = filterStatusStok.value;
 
@@ -768,15 +623,20 @@
 
         rows.forEach(row => {
 
-            const cocokKeyword = row.innerText.toLowerCase().includes(keyword);
+            // Abaikan baris pesan data kosong
+            if (!row.dataset.kategori && !row.dataset.status) {
+                return;
+            }
 
-            const cocokKategori = !kategori ||
-                row.dataset.kategori === kategori;
+            const cocokKeyword =
+                row.innerText.toLowerCase().includes(keyword);
 
-            const cocokStatus = !status ||
-                row.dataset.status === status;
+            const cocokKategori = !kategori || row.dataset.kategori === kategori;
 
-            const tampil = cocokKeyword && cocokKategori && cocokStatus;
+            const cocokStatus = !status || row.dataset.status === status;
+
+            const tampil =
+                cocokKeyword && cocokKategori && cocokStatus;
 
             row.style.display = tampil ? '' : 'none';
 
@@ -786,17 +646,19 @@
 
         });
 
-        dataKosongStok.classList.toggle('d-none', jumlahTampil > 0);
-
+        dataKosongStok.classList.toggle(
+            'd-none',
+            jumlahTampil > 0
+        );
     }
 
-
     searchStok.addEventListener('input', filterStokMenipis);
+
     filterKategoriStok.addEventListener('change', filterStokMenipis);
+
     filterStatusStok.addEventListener('change', filterStokMenipis);
 
 
-    // ================= RESET FILTER =================
     function resetFilterStok() {
 
         searchStok.value = '';
@@ -806,6 +668,7 @@
         filterStokMenipis();
 
     }
+
 
 
     // ================= DETAIL PRODUK =================
@@ -828,25 +691,24 @@
         // TAMPILAN STATUS
         const detailStatus = document.getElementById('detailStatus');
 
-        if (data.status === 'Kritis') {
+        const badgeClass = data.status === 'Kritis' ?
+            'bg-light-danger text-danger' :
+            'bg-light-warning text-warning';
 
-            detailStatus.innerHTML = `
-                <span class="badge bg-light-danger text-danger px-3 py-2">
-                    <iconify-icon icon="solar:danger-bold-duotone" class="me-1"></iconify-icon>
-                    Stok Kritis
-                </span>
-            `;
+        const iconStatus = data.status === 'Kritis' ?
+            'solar:danger-bold-duotone' :
+            'solar:danger-triangle-bold-duotone';
 
-        } else {
+        detailStatus.replaceChildren();
 
-            detailStatus.innerHTML = `
-                <span class="badge bg-light-warning text-warning px-3 py-2">
-                    <iconify-icon icon="solar:danger-triangle-bold-duotone" class="me-1"></iconify-icon>
-                    Stok Menipis
-                </span>
-            `;
+        const badge = document.createElement('span');
 
-        }
+        badge.className = `badge ${badgeClass} px-3 py-2`;
+        badge.textContent = data.status === 'Kritis' ?
+            'Stok Kritis' :
+            'Stok Menipis';
+
+        detailStatus.appendChild(badge);
 
 
         // TAMPILKAN MODAL

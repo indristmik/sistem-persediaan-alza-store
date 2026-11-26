@@ -1,3 +1,24 @@
+<?php
+
+/**
+ * Variabel yang dikirim dari DashboardController.
+ *
+ * @var string $tanggalHariIni
+ * @var int $totalProduk
+ * @var int $totalVarian
+ * @var int|float $totalStok
+ * @var array $stokMenipis
+ * @var int|float $barangMasuk
+ * @var int|float $barangKeluar
+ * @var int $transaksiMasuk
+ * @var int $transaksiKeluar
+ * @var array $tanggalGrafik
+ * @var array $dataMasuk
+ * @var array $dataKeluar
+ * @var array $transaksiTerbaru
+ */
+
+?>
 
 <?= $this->extend('TemplateOwner'); ?>
 <?= $this->section('content'); ?>
@@ -16,7 +37,7 @@
         <div class="mt-3 mt-md-0">
             <span class="badge bg-light-primary text-primary fs-3 px-3 py-2">
                 <iconify-icon icon="solar:calendar-bold-duotone" class="me-1"></iconify-icon>
-                25 November 2026
+                <?= date('d F Y', strtotime($tanggalHariIni)); ?>
             </span>
         </div>
     </div>
@@ -32,7 +53,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Produk</p>
-                            <h4 class="fw-semibold mb-0">24</h4>
+                            <!-- <h4 class="fw-semibold mb-0">24</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format($totalProduk, 0, ',', '.'); ?>
+                            </h4>
                             <small class="text-muted">Produk terdaftar</small>
                         </div>
 
@@ -54,7 +78,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Varian</p>
-                            <h4 class="fw-semibold mb-0">86</h4>
+                            <!-- <h4 class="fw-semibold mb-0">86</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format($totalVarian, 0, ',', '.'); ?>
+                            </h4>
                             <small class="text-muted">Warna dan ukuran</small>
                         </div>
 
@@ -76,7 +103,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Stok</p>
-                            <h4 class="fw-semibold mb-0">1.245</h4>
+                            <!-- <h4 class="fw-semibold mb-0">1.245</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format($totalStok, 0, ',', '.'); ?>
+                            </h4>
                             <small class="text-muted">Pcs barang tersedia</small>
                         </div>
 
@@ -98,7 +128,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Stok Menipis</p>
-                            <h4 class="fw-semibold mb-0">8</h4>
+                            <!-- <h4 class="fw-semibold mb-0">8</h4> -->
+                            <h4 class="fw-semibold mb-0">
+                                <?= number_format(count($stokMenipis), 0, ',', '.'); ?>
+                            </h4>
                             <small class="text-danger">Perlu perhatian</small>
                         </div>
 
@@ -171,7 +204,10 @@
                             </div>
                         </div>
 
-                        <h5 class="text-success mb-0">320 Pcs</h5>
+                        <!-- <h5 class="text-success mb-0">320 Pcs</h5> -->
+                        <h5 class="text-success mb-0">
+                            <?= number_format($barangMasuk, 0, ',', '.'); ?> Pcs
+                        </h5>
                     </div>
 
                     <hr>
@@ -192,7 +228,10 @@
                             </div>
                         </div>
 
-                        <h5 class="text-danger mb-0">185 Pcs</h5>
+                        <!-- <h5 class="text-danger mb-0">185 Pcs</h5> -->
+                        <h5 class="text-danger mb-0">
+                            <?= number_format($barangKeluar, 0, ',', '.'); ?> Pcs
+                        </h5>
                     </div>
 
                     <hr>
@@ -213,7 +252,10 @@
                             </div>
                         </div>
 
-                        <h5 class="mb-0">18</h5>
+                        <!-- <h5 class="mb-0">18</h5> -->
+                        <h5 class="mb-0">
+                            <?= number_format($transaksiMasuk); ?>
+                        </h5>
                     </div>
 
                     <hr>
@@ -234,7 +276,10 @@
                             </div>
                         </div>
 
-                        <h5 class="mb-0">26</h5>
+                        <!-- <h5 class="mb-0">26</h5> -->
+                        <h5 class="mb-0">
+                            <?= number_format($transaksiKeluar); ?>
+                        </h5>
                     </div>
 
                 </div>
@@ -257,13 +302,15 @@
                         </h5>
 
                         <a href="/Owner/StokMenipis"
-                           class="text-primary fw-semibold fs-3">
+                            class="text-primary fw-semibold fs-3">
                             Lihat Semua
                         </a>
                     </div>
 
-                    <div class="alert alert-warning d-flex align-items-center mb-4"
-                         role="alert">
+
+
+                    <!-- <div class="alert alert-warning d-flex align-items-center mb-4"
+                        role="alert">
                         <iconify-icon
                             icon="solar:danger-triangle-bold-duotone"
                             class="fs-7 me-2">
@@ -272,11 +319,11 @@
                         <div class="fs-3">
                             Terdapat 8 varian produk dengan stok menipis.
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <!-- PRODUK 1 -->
-                    <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
+                    <!-- <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
                         <div>
                             <h6 class="mb-1 fw-semibold">Kaos Polos</h6>
                             <small class="text-muted">Hitam / M</small>
@@ -290,11 +337,11 @@
                                 Min. 10 Pcs
                             </small>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <!-- PRODUK 2 -->
-                    <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
+                    <!-- <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
                         <div>
                             <h6 class="mb-1 fw-semibold">Hoodie Basic</h6>
                             <small class="text-muted">Abu-abu / L</small>
@@ -308,11 +355,11 @@
                                 Min. 10 Pcs
                             </small>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <!-- PRODUK 3 -->
-                    <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
+                    <!-- <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
                         <div>
                             <h6 class="mb-1 fw-semibold">Celana Jogger</h6>
                             <small class="text-muted">Hitam / XL</small>
@@ -326,11 +373,11 @@
                                 Min. 5 Pcs
                             </small>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <!-- PRODUK 4 -->
-                    <div class="d-flex align-items-center justify-content-between py-3">
+                    <!-- <div class="d-flex align-items-center justify-content-between py-3">
                         <div>
                             <h6 class="mb-1 fw-semibold">Kemeja Casual</h6>
                             <small class="text-muted">Putih / L</small>
@@ -344,7 +391,71 @@
                                 Min. 8 Pcs
                             </small>
                         </div>
+                    </div> -->
+
+
+                    <div class="alert alert-warning d-flex align-items-center mb-4"
+                        role="alert">
+
+                        <iconify-icon
+                            icon="solar:danger-triangle-bold-duotone"
+                            class="fs-7 me-2">
+                        </iconify-icon>
+
+                        <div class="fs-3">
+                            Terdapat <?= count($stokMenipis); ?>
+                            varian produk dengan stok menipis.
+                        </div>
                     </div>
+
+                    <?php if (!empty($stokMenipis)): ?>
+
+                        <?php foreach ($stokMenipis as $index => $stok): ?>
+
+                            <div class="d-flex align-items-center justify-content-between py-3 <?= $index < count($stokMenipis) - 1 ? 'border-bottom' : ''; ?>">
+
+                                <div>
+                                    <h6 class="mb-1 fw-semibold">
+                                        <?= esc($stok['nama_produk']); ?>
+                                    </h6>
+
+                                    <small class="text-muted">
+                                        <?= esc($stok['warna']); ?> /
+                                        <?= esc($stok['ukuran']); ?>
+                                    </small>
+                                </div>
+
+                                <div class="text-end">
+
+                                    <span class="badge bg-light-danger text-danger">
+                                        <?= number_format($stok['stok_sekarang']); ?> Pcs
+                                    </span>
+
+                                    <small class="d-block text-muted mt-1">
+                                        Min. <?= number_format($stok['stok_minimum']); ?> Pcs
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <div class="text-center py-4">
+                            <iconify-icon
+                                icon="solar:check-circle-bold-duotone"
+                                class="fs-8 text-success">
+                            </iconify-icon>
+
+                            <p class="text-muted mb-0 mt-2">
+                                Semua stok produk dalam kondisi aman.
+                            </p>
+                        </div>
+
+                    <?php endif; ?>
+
 
                 </div>
             </div>
@@ -375,7 +486,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <!-- <tbody>
 
                                 <tr>
                                     <td class="ps-0 fw-semibold">
@@ -487,13 +598,77 @@
                                     </td>
                                 </tr>
 
+                            </tbody> -->
+
+                            <tbody>
+
+                                <?php if (!empty($transaksiTerbaru)): ?>
+
+                                    <?php foreach ($transaksiTerbaru as $transaksi): ?>
+
+                                        <tr>
+
+                                            <td class="ps-0 fw-semibold">
+                                                <?= esc($transaksi['referensi']); ?>
+                                            </td>
+
+                                            <td>
+
+                                                <?php if ($transaksi['jenis'] === 'Masuk'): ?>
+
+                                                    <span class="badge bg-light-success text-success">
+                                                        Masuk
+                                                    </span>
+
+                                                <?php else: ?>
+
+                                                    <span class="badge bg-light-danger text-danger">
+                                                        Keluar
+                                                    </span>
+
+                                                <?php endif; ?>
+
+                                            </td>
+
+                                            <td>
+                                                <?= date(
+                                                    'd M Y',
+                                                    strtotime($transaksi['tanggal'])
+                                                ); ?>
+                                            </td>
+
+                                            <td>
+                                                <?= number_format($transaksi['jumlah']); ?> Pcs
+                                            </td>
+
+                                            <td>
+                                                <span class="badge bg-light-success text-success">
+                                                    <?= esc($transaksi['status']); ?>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+
+                                    <?php endforeach; ?>
+
+                                <?php else: ?>
+
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4 text-muted">
+                                            Belum ada transaksi.
+                                        </td>
+                                    </tr>
+
+                                <?php endif; ?>
+
                             </tbody>
+
                         </table>
                     </div>
 
                     <div class="text-end mt-4">
                         <a href="/Owner/BarangMasuk"
-                           class="btn btn-outline-primary">
+                            class="btn btn-outline-primary">
                             Lihat Riwayat Transaksi
                         </a>
                     </div>
@@ -517,95 +692,86 @@
 
 <!-- ================= GRAFIK APEXCHARTS ================= -->
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
 
-    const chartElement = document.querySelector("#grafik-stok");
+        const chartElement = document.querySelector("#grafik-stok");
 
-    if (chartElement && typeof ApexCharts !== 'undefined') {
+        if (chartElement && typeof ApexCharts !== 'undefined') {
 
-        const options = {
-            series: [
-                {
-                    name: 'Barang Masuk',
-                    data: [45, 60, 35, 80, 55, 70, 95]
+            const options = {
+                series: [{
+                        name: 'Barang Masuk',
+                        data: <?= json_encode($dataMasuk); ?>
+                    },
+                    {
+                        name: 'Barang Keluar',
+                        data: <?= json_encode($dataKeluar); ?>
+                    }
+                ],
+
+                chart: {
+                    type: 'area',
+                    height: 320,
+                    toolbar: {
+                        show: false
+                    },
+                    fontFamily: 'inherit'
                 },
-                {
-                    name: 'Barang Keluar',
-                    data: [30, 40, 25, 55, 45, 60, 65]
-                }
-            ],
 
-            chart: {
-                type: 'area',
-                height: 320,
-                toolbar: {
-                    show: false
+                colors: ['#5D87FF', '#FA896B'],
+
+                dataLabels: {
+                    enabled: false
                 },
-                fontFamily: 'inherit'
-            },
 
-            colors: ['#5D87FF', '#FA896B'],
-
-            dataLabels: {
-                enabled: false
-            },
-
-            stroke: {
-                curve: 'smooth',
-                width: 3
-            },
-
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    opacityFrom: 0.35,
-                    opacityTo: 0.05
-                }
-            },
-
-            xaxis: {
-                categories: [
-                    '19 Nov',
-                    '20 Nov',
-                    '21 Nov',
-                    '22 Nov',
-                    '23 Nov',
-                    '24 Nov',
-                    '25 Nov'
-                ]
-            },
-
-            yaxis: {
-                title: {
-                    text: 'Jumlah Barang (Pcs)'
+                stroke: {
+                    curve: 'smooth',
+                    width: 3
                 },
-                min: 0
-            },
 
-            legend: {
-                position: 'top',
-                horizontalAlign: 'right'
-            },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        opacityFrom: 0.35,
+                        opacityTo: 0.05
+                    }
+                },
 
-            grid: {
-                borderColor: '#E5EAEF',
-                strokeDashArray: 4
-            },
+                xaxis: {
+                    categories: <?= json_encode($tanggalGrafik); ?>
+                },
 
-            tooltip: {
-                y: {
-                    formatter: function (value) {
-                        return value + ' Pcs';
+                yaxis: {
+                    title: {
+                        text: 'Jumlah Barang (Pcs)'
+                    },
+                    min: 0
+                },
+
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'right'
+                },
+
+                grid: {
+                    borderColor: '#E5EAEF',
+                    strokeDashArray: 4
+                },
+
+                tooltip: {
+                    y: {
+                        formatter: function(value) {
+                            return value + ' Pcs';
+                        }
                     }
                 }
-            }
-        };
+            };
 
-        const chart = new ApexCharts(chartElement, options);
-        chart.render();
-    }
+            const chart = new ApexCharts(chartElement, options);
+            chart.render();
+        }
 
-});
+    });
 </script>
 
 <?= $this->endSection(); ?>
