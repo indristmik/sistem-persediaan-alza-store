@@ -1,3 +1,4 @@
+
 <?= $this->extend('TemplateOwner'); ?>
 <?= $this->section('content'); ?>
 
@@ -256,13 +257,13 @@
                         </h5>
 
                         <a href="/Owner/StokMenipis"
-                            class="text-primary fw-semibold fs-3">
+                           class="text-primary fw-semibold fs-3">
                             Lihat Semua
                         </a>
                     </div>
 
                     <div class="alert alert-warning d-flex align-items-center mb-4"
-                        role="alert">
+                         role="alert">
                         <iconify-icon
                             icon="solar:danger-triangle-bold-duotone"
                             class="fs-7 me-2">
@@ -492,7 +493,7 @@
 
                     <div class="text-end mt-4">
                         <a href="/Owner/BarangMasuk"
-                            class="btn btn-outline-primary">
+                           class="btn btn-outline-primary">
                             Lihat Riwayat Transaksi
                         </a>
                     </div>
@@ -504,6 +505,7 @@
     </div>
 
 
+    <!-- ================= FOOTER ================= -->
     <div class="py-4 text-center">
         <p class="mb-0 fs-3 text-muted">
             Alza Store &copy; <?= date('Y'); ?> - Dashboard Owner
@@ -513,95 +515,97 @@
 </div>
 
 
+<!-- ================= GRAFIK APEXCHARTS ================= -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-        const chartElement = document.querySelector("#grafik-stok");
+    const chartElement = document.querySelector("#grafik-stok");
 
-        if (chartElement && typeof ApexCharts !== 'undefined') {
+    if (chartElement && typeof ApexCharts !== 'undefined') {
 
-            const options = {
-                series: [{
-                        name: 'Barang Masuk',
-                        data: [45, 60, 35, 80, 55, 70, 95]
-                    },
-                    {
-                        name: 'Barang Keluar',
-                        data: [30, 40, 25, 55, 45, 60, 65]
-                    }
-                ],
-
-                chart: {
-                    type: 'area',
-                    height: 320,
-                    toolbar: {
-                        show: false
-                    },
-                    fontFamily: 'inherit'
+        const options = {
+            series: [
+                {
+                    name: 'Barang Masuk',
+                    data: [45, 60, 35, 80, 55, 70, 95]
                 },
+                {
+                    name: 'Barang Keluar',
+                    data: [30, 40, 25, 55, 45, 60, 65]
+                }
+            ],
 
-                colors: ['#5D87FF', '#FA896B'],
-
-                dataLabels: {
-                    enabled: false
+            chart: {
+                type: 'area',
+                height: 320,
+                toolbar: {
+                    show: false
                 },
+                fontFamily: 'inherit'
+            },
 
-                stroke: {
-                    curve: 'smooth',
-                    width: 3
+            colors: ['#5D87FF', '#FA896B'],
+
+            dataLabels: {
+                enabled: false
+            },
+
+            stroke: {
+                curve: 'smooth',
+                width: 3
+            },
+
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    opacityFrom: 0.35,
+                    opacityTo: 0.05
+                }
+            },
+
+            xaxis: {
+                categories: [
+                    '19 Nov',
+                    '20 Nov',
+                    '21 Nov',
+                    '22 Nov',
+                    '23 Nov',
+                    '24 Nov',
+                    '25 Nov'
+                ]
+            },
+
+            yaxis: {
+                title: {
+                    text: 'Jumlah Barang (Pcs)'
                 },
+                min: 0
+            },
 
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        opacityFrom: 0.35,
-                        opacityTo: 0.05
-                    }
-                },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'right'
+            },
 
-                xaxis: {
-                    categories: [
-                        '19 Nov',
-                        '20 Nov',
-                        '21 Nov',
-                        '22 Nov',
-                        '23 Nov',
-                        '24 Nov',
-                        '25 Nov'
-                    ]
-                },
+            grid: {
+                borderColor: '#E5EAEF',
+                strokeDashArray: 4
+            },
 
-                yaxis: {
-                    title: {
-                        text: 'Jumlah Barang (Pcs)'
-                    },
-                    min: 0
-                },
-
-                legend: {
-                    position: 'top',
-                    horizontalAlign: 'right'
-                },
-
-                grid: {
-                    borderColor: '#E5EAEF',
-                    strokeDashArray: 4
-                },
-
-                tooltip: {
-                    y: {
-                        formatter: function(value) {
-                            return value + ' Pcs';
-                        }
+            tooltip: {
+                y: {
+                    formatter: function (value) {
+                        return value + ' Pcs';
                     }
                 }
-            };
+            }
+        };
 
-            const chart = new ApexCharts(chartElement, options);
-            chart.render();
-        }
+        const chart = new ApexCharts(chartElement, options);
+        chart.render();
+    }
 
-    });
+});
 </script>
 
 <?= $this->endSection(); ?>
