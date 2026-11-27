@@ -204,13 +204,6 @@
                                 Cetak
                             </button>
 
-                            <button type="button" class="btn btn-primary"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalTambahProduk">
-                                <iconify-icon icon="solar:add-circle-bold-duotone"
-                                    class="me-1"></iconify-icon>
-                                Tambah Produk
-                            </button>
                         </div>
                     </div>
 
@@ -218,16 +211,14 @@
                         <table class="table table-hover align-middle text-nowrap mb-0"
                             id="tableProduk">
 
+
                             <thead>
                                 <tr>
                                     <th class="ps-0">No</th>
-                                    <th>SKU</th>
+                                    <th>Foto</th>
                                     <th>Nama Produk</th>
                                     <th>Kategori</th>
-                                    <th>Warna</th>
-                                    <th>Ukuran</th>
-                                    <th>Harga Jual</th>
-                                    <th>Stok</th>
+                                    <th>Varian & Total Stok</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -239,89 +230,147 @@
 
                                 <?php foreach ($produk as $p): ?>
 
-                                    <?php foreach ($p['rincian_varian'] as $v): ?>
+                                    <?php
+                                    $totalStok = 0;
+                                    $totalMinimum = 0;
+                                    $stokUkuran = [];
 
-                                        <?php
-                                        if ($v['stok'] == 0) {
-                                            $status = 'Habis';
-                                            $warnaStatus = 'danger';
-                                        } elseif ($v['stok'] <= $v['stok_minimum']) {
-                                            $status = 'Menipis';
-                                            $warnaStatus = 'warning';
-                                        } else {
-                                            $status = 'Tersedia';
-                                            $warnaStatus = 'success';
+                                    foreach ($p['rincian_varian'] as $v) {
+
+                                        $ukuran = $v['ukuran'];
+
+                                        if (!isset($stokUkuran[$ukuran])) {
+                                            $stokUkuran[$ukuran] = 0;
                                         }
-                                        ?>
 
-                                        <tr
-                                            data-kategori="<?= esc($p['nama_kategori'] ?? '-'); ?>"
-                                            data-status="<?= $status; ?>">
+                                        $stokUkuran[$ukuran] += (int) $v['stok'];
 
-                                            <td><?= $no++; ?></td>
+                                        $totalStok += (int) $v['stok'];
+                                        $totalMinimum += (int) $v['stok_minimum'];
+                                    }
 
-                                            <td class="fw-semibold">
-                                                <?= esc($v['kode_sku'] ?? $v['sku'] ?? '-'); ?>
-                                            </td>
+                                    if ($totalStok == 0) {
+                                        $status = 'Habis';
+                                        $warnaStatus = 'danger';
+                                    } elseif ($totalStok <= $totalMinimum) {
+                                        $status = 'Menipis';
+                                        $warnaStatus = 'warning';
+                                    } else {
+                                        $status = 'Tersedia';
+                                        $warnaStatus = 'success';
+                                    }
+                                    ?>
 
-                                            <td>
-                                                <h6 class="mb-0 fw-semibold">
-                                                    <?= esc($p['nama_produk']); ?>
-                                                </h6>
-                                                <small class="text-muted">
-                                                    <?= esc($p['daftar_warna']); ?>
-                                                </small>
-                                            </td>
+                                    <tr
+                                        data-kategori="<?= esc($p['nama_kategori'] ?? '-'); ?>"
+                                        data-status="<?= $status; ?>">
 
-                                            <td>
+                                        <!-- NOMOR -->
+                                        <td><?= $no++; ?></td>
+
+                                        <!-- FOTO -->
+                                        <td>
+                                            <?php if (
+                                                !empty($p['foto']) &&
+                                                file_exists(FCPATH . 'uploads/produk/' . $p['foto'])
+                                            ): ?>
+
+                                                <img
+                                                    src="<?= base_url('uploads/produk/' . $p['foto']); ?>"
+                                                    width="55"
+                                                    height="55"
+                                                    class="rounded-3"
+                                                    style="object-fit: cover;">
+
+                                            <?php else: ?>
+
+                                                <img
+                                                    src="<?= base_url('assets/images/products/default.png'); ?>"
+                                                    width="55"
+                                                    height="55"
+                                                    class="rounded-3"
+                                                    style="object-fit: cover;">
+
+                                            <?php endif; ?>
+                                        </td>
+
+                                        <!-- NAMA PRODUK -->
+                                        <td>
+                                            <h6 class="mb-0 fw-semibold">
+                                                <?= esc($p['nama_produk']); ?>
+                                            </h6>
+
+                                            <small class="text-muted">
+                                                <?= esc($p['daftar_warna']); ?>
+                                            </small>
+                                        </td>
+
+                                        <!-- KATEGORI -->
+                                        <td>
+                                            <span class="badge bg-light-primary text-primary">
                                                 <?= esc($p['nama_kategori'] ?? '-'); ?>
-                                            </td>
+                                            </span>
+                                        </td>
 
-                                            <td><?= esc($v['warna']); ?></td>
+                                        <!-- VARIAN DAN TOTAL STOK -->
+                                        <td>
+                                            <div class="d-flex flex-wrap gap-1 mb-2">
 
-                                            <td><?= esc($v['ukuran']); ?></td>
+                                                <?php foreach ($stokUkuran as $ukuran => $stok): ?>
 
-                                            <td class="fw-semibold">
-                                                Rp<?= number_format($v['harga_jual'], 0, ',', '.'); ?>
-                                            </td>
+                                                    <?php
+                                                    $warnaVarian = $stok > 0 ? 'primary' : 'danger';
+                                                    ?>
 
-                                            <td class="fw-semibold">
-                                                <?= esc($v['stok']); ?> Pcs
-                                            </td>
+                                                    <span class="badge bg-light-<?= $warnaVarian; ?> text-<?= $warnaVarian; ?>">
+                                                        <?= esc($ukuran); ?> (<?= $stok; ?>)
+                                                    </span>
 
-                                            <td>
-                                                <span class="badge bg-light-<?= $warnaStatus; ?> text-<?= $warnaStatus; ?>">
-                                                    <?= $status; ?>
-                                                </span>
-                                            </td>
+                                                <?php endforeach; ?>
 
-                                            <td>
-                                                <button
-                                                    class="btn btn-sm btn-light-primary"
-                                                    type="button"
-                                                    onclick="lihatDetailProduk(this)"
+                                            </div>
 
-                                                    data-nama="<?= esc($p['nama_produk']); ?>"
-                                                    data-sku="<?= esc($v['kode_sku'] ?? $v['sku'] ?? '-'); ?>"
-                                                    data-kategori="<?= esc($p['nama_kategori'] ?? '-'); ?>"
-                                                    data-warna="<?= esc($v['warna']); ?>"
-                                                    data-ukuran="<?= esc($v['ukuran']); ?>"
-                                                    data-harga="Rp<?= number_format($v['harga_jual'], 0, ',', '.'); ?>"
-                                                    data-stok="<?= esc($v['stok']); ?> Pcs"
-                                                    data-minimum="<?= esc($v['stok_minimum']); ?> Pcs"
-                                                    data-status="<?= $status; ?>">
+                                            <span class="fw-semibold text-dark">
+                                                — <?= $totalStok; ?> pcs
+                                            </span>
+                                        </td>
 
-                                                    <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
-                                                </button>
-                                            </td>
+                                        <!-- STATUS -->
+                                        <td>
+                                            <span class="badge bg-light-<?= $warnaStatus; ?> text-<?= $warnaStatus; ?>">
+                                                <?= $status; ?>
+                                            </span>
+                                        </td>
 
-                                        </tr>
+                                        <!-- AKSI -->
+                                        <td>
+                                            <button
+                                                class="btn btn-sm btn-light-primary"
+                                                type="button"
+                                                onclick="lihatDetailProduk(this)"
 
-                                    <?php endforeach; ?>
+                                                data-nama="<?= esc($p['nama_produk']); ?>"
+                                                data-kategori="<?= esc($p['nama_kategori'] ?? '-'); ?>"
+                                                data-warna="<?= esc($p['daftar_warna']); ?>"
+                                                data-total-stok="<?= $totalStok; ?>"
+                                                data-total-varian="<?= count($p['rincian_varian']); ?>"
+                                                data-status="<?= $status; ?>"
+                                                data-foto="<?= esc($p['foto'] ?? ''); ?>"
+
+                                                data-varian="<?= esc(json_encode($p['rincian_varian'], JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_TAG), 'attr'); ?>">
+
+                                                <iconify-icon icon="solar:eye-bold-duotone"></iconify-icon>
+
+                                            </button>
+                                        </td>
+
+
+                                    </tr>
 
                                 <?php endforeach; ?>
 
                             </tbody>
+
 
                         </table>
 
@@ -378,10 +427,12 @@
 </div>
 
 <!-- ================= MODAL DETAIL PRODUK ================= -->
+
+<!-- ================= MODAL DETAIL PRODUK ================= -->
 <div class="modal fade" id="modalDetailProduk" tabindex="-1"
     aria-labelledby="modalDetailProdukLabel" aria-hidden="true">
 
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -390,89 +441,175 @@
                 </h5>
 
                 <button type="button" class="btn-close"
-                    data-bs-dismiss="modal" aria-label="Close">
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
                 </button>
             </div>
 
             <div class="modal-body">
 
-                <div class="text-center mb-4">
-                    <div class="bg-light-primary rounded-4 p-4 d-inline-block">
-                        <iconify-icon icon="solar:box-bold-duotone"
-                            class="fs-9 text-primary">
-                        </iconify-icon>
+                <!-- IDENTITAS PRODUK -->
+                <div class="row align-items-center mb-4">
+
+                    <div class="col-md-3 text-center mb-3 mb-md-0">
+
+                        <div class="bg-light-primary rounded-4 p-2 d-inline-block">
+
+                            <img
+                                src="<?= base_url('assets/images/products/default.png'); ?>"
+                                id="detailFotoProduk"
+                                class="rounded-3"
+                                style="width: 130px; height: 130px; object-fit: cover;"
+                                alt="Foto Produk">
+
+                        </div>
+
                     </div>
 
-                    <h5 class="fw-semibold mt-3 mb-1" id="detailNamaProduk">
-                        Nama Produk
-                    </h5>
+                    <div class="col-md-9">
 
-                    <p class="text-muted mb-0" id="detailSKU">SKU</p>
-                </div>
+                        <h4 class="fw-semibold mb-2" id="detailNamaProduk">
+                            Nama Produk
+                        </h4>
 
-                <div class="row g-3">
+                        <div class="d-flex flex-wrap gap-2 mb-2">
 
-                    <div class="col-6">
-                        <div class="bg-light rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Kategori</small>
-                            <h6 class="mb-0" id="detailKategori">-</h6>
+                            <span class="badge bg-light-primary text-primary">
+                                <iconify-icon icon="solar:widget-bold-duotone"
+                                    class="me-1"></iconify-icon>
+                                <span id="detailKategori">-</span>
+                            </span>
+
                         </div>
-                    </div>
 
-                    <div class="col-6">
-                        <div class="bg-light rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Warna</small>
-                            <h6 class="mb-0" id="detailWarna">-</h6>
-                        </div>
-                    </div>
+                        <p class="text-muted mb-0">
+                            <iconify-icon icon="solar:palette-bold-duotone"
+                                class="me-1"></iconify-icon>
+                            Warna:
+                            <span id="detailWarna">-</span>
+                        </p>
 
-                    <div class="col-6">
-                        <div class="bg-light rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Ukuran</small>
-                            <h6 class="mb-0" id="detailUkuran">-</h6>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="bg-light rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Harga Jual</small>
-                            <h6 class="mb-0" id="detailHarga">-</h6>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="bg-light rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Stok Saat Ini</small>
-                            <h6 class="mb-0" id="detailStok">-</h6>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="bg-light rounded-3 p-3">
-                            <small class="text-muted d-block mb-1">Stok Minimum</small>
-                            <h6 class="mb-0" id="detailMinimum">-</h6>
-                        </div>
                     </div>
 
                 </div>
 
+                <hr>
+
+                <!-- RINGKASAN PERSEDIAAN -->
+                <div class="mb-3">
+                    <h6 class="fw-semibold mb-3">
+                        <iconify-icon icon="solar:chart-square-bold-duotone"
+                            class="text-primary me-1"></iconify-icon>
+                        Ringkasan Persediaan
+                    </h6>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-4">
+                            <div class="bg-light rounded-3 p-3 h-100">
+                                <small class="text-muted d-block mb-2">
+                                    Total Varian
+                                </small>
+
+                                <h4 class="fw-semibold mb-0"
+                                    id="detailTotalVarian">
+                                    0
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="bg-light rounded-3 p-3 h-100">
+                                <small class="text-muted d-block mb-2">
+                                    Total Stok
+                                </small>
+
+                                <h4 class="fw-semibold mb-0 text-primary"
+                                    id="detailTotalStok">
+                                    0 pcs
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="bg-light rounded-3 p-3 h-100">
+                                <small class="text-muted d-block mb-2">
+                                    Status Persediaan
+                                </small>
+
+                                <div class="mt-1" id="detailStatus">
+                                    -
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- DAFTAR VARIAN -->
                 <div class="mt-4">
-                    <label class="form-label fw-semibold">Status Persediaan</label>
-                    <div id="detailStatus">-</div>
+
+                    <div class="d-md-flex justify-content-between align-items-center mb-3">
+
+                        <div>
+                            <h6 class="fw-semibold mb-1">
+                                <iconify-icon icon="solar:list-bold-duotone"
+                                    class="text-primary me-1"></iconify-icon>
+                                Daftar SKU dan Varian
+                            </h6>
+
+                            <p class="text-muted small mb-0">
+                                Informasi harga dan persediaan setiap varian produk.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive rounded-3">
+
+                        <table class="table table-hover align-middle text-nowrap mb-0">
+
+                            <thead class="">
+                                <tr>
+                                    <th class="ps-3">No</th>
+                                    <th>SKU</th>
+                                    <th>Warna</th>
+                                    <th>Ukuran</th>
+                                    <th>Harga Jual</th>
+                                    <th>Stok</th>
+                                    <th class="pe-3">Stok Minimum</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="detailDaftarVarian">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
                 </div>
 
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-light"
+
+                <button type="button"
+                    class="btn btn-light"
                     data-bs-dismiss="modal">
+
+                    <iconify-icon icon="solar:close-circle-bold-duotone"
+                        class="me-1"></iconify-icon>
+
                     Tutup
                 </button>
+
             </div>
 
         </div>
     </div>
 </div>
+
 
 <!-- ================= MODAL TAMBAH PRODUK (UI SAJA) ================= -->
 <div class="modal fade" id="modalTambahProduk" tabindex="-1"
@@ -627,15 +764,30 @@
 
         const data = button.dataset;
 
+        // Informasi utama
         document.getElementById('detailNamaProduk').innerText = data.nama;
-        document.getElementById('detailSKU').innerText = data.sku;
         document.getElementById('detailKategori').innerText = data.kategori;
         document.getElementById('detailWarna').innerText = data.warna;
-        document.getElementById('detailUkuran').innerText = data.ukuran;
-        document.getElementById('detailHarga').innerText = data.harga;
-        document.getElementById('detailStok').innerText = data.stok;
-        document.getElementById('detailMinimum').innerText = data.minimum;
 
+        // Foto produk
+        const fotoProduk = document.getElementById('detailFotoProduk');
+
+        fotoProduk.src = data.foto ?
+            '<?= base_url("uploads/produk/"); ?>' + encodeURIComponent(data.foto) :
+            '<?= base_url("assets/images/products/default.png"); ?>';
+
+        fotoProduk.onerror = function() {
+            this.src = '<?= base_url("assets/images/products/default.png"); ?>';
+        };
+
+        // Ringkasan
+        document.getElementById('detailTotalVarian').innerText =
+            data.totalVarian;
+
+        document.getElementById('detailTotalStok').innerText =
+            data.totalStok + ' pcs';
+
+        // Status
         let warnaStatus = 'success';
 
         if (data.status === 'Menipis') {
@@ -645,12 +797,58 @@
         }
 
         document.getElementById('detailStatus').innerHTML = `
-        <span class="badge bg-light-${warnaStatus} text-${warnaStatus} px-3 py-2">
+        <span class="badge bg-light-${warnaStatus} text-${warnaStatus}">
             ${data.status}
         </span>
     `;
 
-        const modal = new bootstrap.Modal(
+        // Daftar seluruh varian
+        const varian = JSON.parse(data.varian);
+
+        const tbody = document.getElementById('detailDaftarVarian');
+
+        tbody.innerHTML = '';
+
+        varian.forEach((v, index) => {
+
+            const stok = Number(v.stok);
+            const minimum = Number(v.stok_minimum);
+
+            let statusVarian = 'Tersedia';
+            let warnaVarian = 'success';
+
+            if (stok === 0) {
+                statusVarian = 'Habis';
+                warnaVarian = 'danger';
+            } else if (stok <= minimum) {
+                statusVarian = 'Menipis';
+                warnaVarian = 'warning';
+            }
+
+            const row = document.createElement('tr');
+
+            const values = [
+                index + 1,
+                v.kode_sku || v.sku || '-',
+                v.warna || '-',
+                v.ukuran || '-',
+                'Rp' + Number(v.harga_jual).toLocaleString('id-ID'),
+                stok + ' pcs',
+                minimum + ' pcs'
+            ];
+
+            values.forEach(value => {
+                const td = document.createElement('td');
+                td.textContent = value;
+                row.appendChild(td);
+            });
+
+            tbody.appendChild(row);
+
+        });
+
+        // Tampilkan modal
+        const modal = bootstrap.Modal.getOrCreateInstance(
             document.getElementById('modalDetailProduk')
         );
 
@@ -723,6 +921,7 @@
                     <tr>
                         <th>No</th>
                         <th>SKU</th>
+                        <th>Foto</th>
                         <th>Nama Produk</th>
                         <th>Kategori</th>
                         <th>Warna</th>
